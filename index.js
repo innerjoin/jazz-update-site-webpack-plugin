@@ -6,7 +6,7 @@ var RawSource = require('webpack-sources').RawSource;
 var yazl = require('yazl');
 
 function JazzUpdateSitePlugin(options) {
-	this.options = options || {};
+    this.options = options || {};
     this.options.projectInfo = options.projectInfo || {};
 }
 
@@ -24,7 +24,7 @@ function JazzUpdateSitePlugin(options) {
  * --------- << content of your project filtered by glob pattern >>
  */
 JazzUpdateSitePlugin.prototype.apply = function(compiler) {
-	const options = this.options;
+    const options = this.options;
     
     // options to be configured by the caller
     const appType = this.options.appType;
@@ -103,7 +103,7 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
             compilation.assets[zipAsset] = new RawSource(rawArtifacts);
             callback();
         });
-	});
+    });
 };
 
 JazzUpdateSitePlugin.prototype.createZipFromPattern = function(globPattern) {
@@ -111,8 +111,9 @@ JazzUpdateSitePlugin.prototype.createZipFromPattern = function(globPattern) {
     var files = glob.sync(globPattern, {mark: true});
    
     // remove all directories using filter() and create an array holding all read files
-    const pluginFiles = files.filter(function(f) { return !/\/$/.test(f); })
-        .map((file) => { return {source: fs.readFileSync(file), name: file};});
+    const pluginFiles = files
+                        .filter(function(f) { return !/\/$/.test(f); })
+                        .map((file) => { return {source: fs.readFileSync(file), name: file};});
     
     // create a zip including all the above read files
     return this.createZipFromBuffer(pluginFiles);
