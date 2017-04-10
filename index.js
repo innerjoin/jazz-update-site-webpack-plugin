@@ -1,10 +1,10 @@
 'use strict';
 
 var glob = require('glob-all');
-var zipper = require('zip-local');
+// var zipper = require('zip-local');
 var fs = require('fs');
-var path = require('path');
-var archiver = require('archiver');
+// var path = require('path');
+// var archiver = require('archiver');
 var RawSource = require('webpack-sources').RawSource;
 var yazl = require('yazl');
 
