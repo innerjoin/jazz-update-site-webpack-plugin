@@ -1,0 +1,16 @@
+{
+  "name": "jazz-update-site-webpack-plugin",
+  "version": "0.1.0",
+  "author": "Lukas Steiger | @innerjoin",
+  "description": "Webpack 2 plugin to package IBM Jazz Extension into a valid update-site format",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/innerjoin/jazz-update-site-webpack-plugin"
+  },
+  "dependencies": {
+    "glob-all": "^3.1.0",
+    "webpack-sources": "^0.2.3",
+    "yazl": "^2.4.2"
+  }
+}
