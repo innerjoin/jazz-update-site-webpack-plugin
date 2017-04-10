@@ -1,6 +1,6 @@
 {
   "name": "jazz-update-site-webpack-plugin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Lukas Steiger | @innerjoin",
   "description": "Webpack 2 plugin to package IBM Jazz Extension into a valid update-site format",
   "license": "MIT",
