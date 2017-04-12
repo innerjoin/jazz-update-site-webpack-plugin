@@ -101,7 +101,8 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
             return this.createZipFromBuffer(artifactData);
         })
         .then((rawArtifacts) => {
-            compilation.assets[zipAsset] = new RawSource(rawArtifacts);
+            fs.writeFileSync(zipAsset, rawArtifacts);
+            console.log("jazz-update-site-webpack-plugin execution finished");
             callback();
         });
     });
