@@ -83,7 +83,7 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
                   + `  <plugin download-size="0" id="${projectId}" install-size="0" version="${version}" />\n`
                   + `</feature>`;
 
-	compiler.plugin('emit', (compilation, callback) => {
+	compiler.plugin('after-emit', (compilation, callback) => {
 
         var featureData = [{source: new Buffer(feature), name: nestedFeatureXml}];
         var artifactData = [
