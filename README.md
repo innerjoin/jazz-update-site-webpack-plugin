@@ -24,6 +24,13 @@ plugins: [
         appType: 'ccm',
         // identifier of the project, will be used for JAR and folder names
         projectId: 'com.example.my.project',
+        // the files to be copied to the plugin
+        acceptGlobPattern: [
+            'resources/**',
+            'META-INF/**',
+            'plugin.xml',
+            'deployment-properties.ini',
+        ],
         // project meta information, in this example directly read from package.json file
         projectInfo: {
             author: packageJson.author,

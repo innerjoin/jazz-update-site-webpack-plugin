@@ -5,6 +5,13 @@ var fs = require('fs');
 var RawSource = require('webpack-sources').RawSource;
 var yazl = require('yazl');
 
+// the project files to be included in the plugin.jar
+const defaultAcceptGlobPattern = [
+    'resources/**',
+    'META-INF/**',
+    'plugin.xml'
+];
+
 function JazzUpdateSitePlugin(options) {
     this.options = options || {};
     this.options.projectInfo = options.projectInfo || {};
@@ -27,9 +34,10 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
     const options = this.options;
     
     // options to be configured by the caller
-    const appType = this.options.appType;
+    const appType = this.options.appType || 'ccm';
     const projectId = this.options.projectId;
     const projectInfo = this.options.projectInfo;
+    const acceptGlobPattern = this.options.acceptGlobPattern || defaultAcceptGlobPattern;
 
     // shorthand variables for project info
     const author = projectInfo.author;
@@ -50,13 +58,6 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
     const nestedFeatureXml = 'feature.xml';
     const pluginsJar = `${folderId}/plugins/${resourceID}.jar`;
     const zipAsset = `./${resourceID}.zip`;
-
-    // the project files to be included in the plugin.jar
-    const acceptGlobPattern = [
-        'resources/**',
-        'META-INF/**',
-        'plugin.xml'
-    ];
 
     // provision-profile.ini file content
     const provisionProfile = `#Copy this file into conf/${appType}/provision_profiles folder\n`
