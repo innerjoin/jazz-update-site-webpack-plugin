@@ -38,6 +38,7 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
     const projectId = this.options.projectId;
     const projectInfo = this.options.projectInfo;
     const acceptGlobPattern = this.options.acceptGlobPattern || defaultAcceptGlobPattern;
+    const pluginBasePath = this.options.pluginBasePath || '';
 
     // shorthand variables for project info
     const author = projectInfo.author;
@@ -76,10 +77,6 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
                   + `  <description>${description}</description>\n`
                   + `  <copyright>${copyright}</copyright>\n`
                   + `  <license>${license}</license>\n`
-                       /*<requires>
-                          <import match="greaterOrEqual" plugin="net.jazz.ajax" version="2.3.2" />
-                          <import match="greaterOrEqual" plugin="com.ibm.team.workitem.web" version="3.1.1100" />
-                       </requires>*/
                   + `  <plugin download-size="0" id="${projectId}" install-size="0" version="${version}" />\n`
                   + `</feature>`;
 
@@ -98,7 +95,7 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
         })
         .then((rawPlugin) => {
             artifactData.push({source: rawPlugin, name: pluginsJar});
-            return this.createZipFromBuffer(artifactData);
+            return this.createZipFromBuffer(artifactData, pluginBasePath);
         })
         .then((rawArtifacts) => {
             fs.writeFileSync(zipAsset, rawArtifacts);
@@ -121,7 +118,7 @@ JazzUpdateSitePlugin.prototype.createZipFromPattern = function(globPattern) {
     return this.createZipFromBuffer(pluginFiles);
 };
 
-JazzUpdateSitePlugin.prototype.createZipFromBuffer = function(elements) {
+JazzUpdateSitePlugin.prototype.createZipFromBuffer = function(elements, pluginBasePath) {
     return new Promise((resolve, reject) => {
         var bufs = [];
 
@@ -130,7 +127,11 @@ JazzUpdateSitePlugin.prototype.createZipFromBuffer = function(elements) {
         
         // create a new virtual file for each entry
         elements.forEach((element) => {
-            zip.addBuffer(new Buffer(element.source), element.name);
+            let name = element.name;
+            if(name.indexOf(pluginBasePath) === 0) {
+                name = name.replace(pluginBasePath, "");
+            }
+            zip.addBuffer(new Buffer(element.source), name);
         });
         
         // finish zip file creation
