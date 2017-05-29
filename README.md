@@ -24,12 +24,14 @@ plugins: [
         appType: 'ccm',
         // identifier of the project, will be used for JAR and folder names
         projectId: 'com.example.my.project',
+        // the path to subtract from 'acceptGlobPattern' while creating the ZIP file
+        pluginBasePath: 'subFolder/',
         // the files to be copied to the plugin
         acceptGlobPattern: [
-            'resources/**',
-            'META-INF/**',
-            'plugin.xml',
-            'deployment-properties.ini',
+            'subFolder/resources/**',
+            'subFolder/META-INF/**',
+            'subFolder/plugin.xml',
+            'subFolder/deployment-properties.ini',
         ],
         // project meta information, in this example directly read from package.json file
         projectInfo: {
