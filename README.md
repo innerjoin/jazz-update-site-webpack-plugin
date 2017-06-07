@@ -47,7 +47,8 @@ plugins: [
 ```
 
 ## Projects using this plug-in
-Stay tuned, the first project using this plug-in will be open-sourced in the nearer future. If you have a project which is using this plug-in successfully, feel free to contribute to this section through a pull request.
+You are using this plug-in in your project? Add your project to this list, either via pull request or by dropping me a line.
+- [Jazz Work Item Bulk Mover](https://github.com/jazz-community/rtc-workitem-bulk-mover-ui)
 
 ## Contributing
 Please use the [Issue Tracker](https://github.com/innerjoin/jazz-update-site-webpack-plugin/issues) of this repository to report issues or suggest enhancements. 
