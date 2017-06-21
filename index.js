@@ -88,10 +88,10 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
             {source: new Buffer(site), name: siteFile}
         ];
 
-        this.createZipFromBuffer(featureData)
+        this.createZipFromBuffer(featureData, pluginBasePath)
         .then((rawFeature) => {
             artifactData.push({source: rawFeature, name: featureJar});
-            return this.createZipFromPattern(acceptGlobPattern);
+            return this.createZipFromPattern(acceptGlobPattern, pluginBasePath);
         })
         .then((rawPlugin) => {
             artifactData.push({source: rawPlugin, name: pluginsJar});
@@ -105,7 +105,7 @@ JazzUpdateSitePlugin.prototype.apply = function(compiler) {
     });
 };
 
-JazzUpdateSitePlugin.prototype.createZipFromPattern = function(globPattern) {
+JazzUpdateSitePlugin.prototype.createZipFromPattern = function(globPattern, pluginBasePath) {
     // get all files matching the glob pattern, mark directories
     var files = glob.sync(globPattern, {mark: true});
    
@@ -115,7 +115,7 @@ JazzUpdateSitePlugin.prototype.createZipFromPattern = function(globPattern) {
                         .map((file) => { return {source: fs.readFileSync(file), name: file};});
     
     // create a zip including all the above read files
-    return this.createZipFromBuffer(pluginFiles);
+    return this.createZipFromBuffer(pluginFiles, pluginBasePath);
 };
 
 JazzUpdateSitePlugin.prototype.createZipFromBuffer = function(elements, pluginBasePath) {
